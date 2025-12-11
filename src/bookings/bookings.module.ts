@@ -11,14 +11,13 @@ import { StripeModule } from 'src/stripe/stripe.module';
 import { EmailModule } from 'src/email/email.module';
 import { HotelsModule } from 'src/hotels/hotels.module';
 import { UmrahbookingsModule } from 'src/umrahbookings/umrahbookings.module';
-import { CarbookingsModule } from 'src/carbookings/carbookings.module';
-import { FlightbookingModule } from 'src/flightbooking/flightbooking.module';
+
 import { NotificationsModule } from 'src/notifications/notifications.module';
 
 @Module({
   controllers: [BookingsController],
   providers: [BookingsService],
-  imports: [TypeOrmModule.forFeature([Booking, Favourites]), UserModule, NotificationsModule,RoomsModule, StripeModule, EmailModule, UmrahbookingsModule, CarbookingsModule, FlightbookingModule, forwardRef(() => HotelsModule)],
+  imports: [TypeOrmModule.forFeature([Booking, Favourites]), UserModule, NotificationsModule,RoomsModule, StripeModule, EmailModule, UmrahbookingsModule, forwardRef(() => HotelsModule)],
   exports: [BookingsService]
 })
 export class BookingsModule { }

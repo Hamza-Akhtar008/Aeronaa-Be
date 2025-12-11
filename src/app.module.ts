@@ -11,14 +11,12 @@ import { BookingsModule } from './bookings/bookings.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { FileUploadModule } from './file-upload/file-upload.module';
 import { StripeModule } from './stripe/stripe.module';
-import { FlightsModule } from './flights/flights.module';
-import { FlightbookingModule } from './flightbooking/flightbooking.module';
+
 import { EmailModule } from './email/email.module';
-import { CarrentalsModule } from './carrentals/carrentals.module';
+
 import { UmrahModule } from './umrah/umrah.module';
 import { UmrahbookingsModule } from './umrahbookings/umrahbookings.module';
-import { PropertyModule } from './property/property.module';
-import { CarbookingsModule } from './carbookings/carbookings.module';
+
 import { InvoicesModule } from './invoices/invoices.module';
 import { InvoiceModule } from './invoice/invoice.module';
 import { HotelInvoiceModule } from './hotel-invoice/hotel-invoice.module';
@@ -50,14 +48,12 @@ import { NotificationsModule } from './notifications/notifications.module';
      ReviewsModule,
     FileUploadModule,
     StripeModule,
-    FlightsModule,
-    FlightbookingModule,
+   
     EmailModule,
-    CarrentalsModule,
+   
     UmrahModule,
     UmrahbookingsModule,
-    PropertyModule,
-    CarbookingsModule,
+   
     InvoicesModule,
     InvoiceModule,
     HotelInvoiceModule,

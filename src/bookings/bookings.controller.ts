@@ -24,8 +24,7 @@ import { HotelsService } from 'src/hotels/hotels.service';
 import { Hotel } from 'src/hotels/entities/hotel.entity';
 import { PaymentType } from './entities/booking.entity';
 import { UmrahbookingsService } from 'src/umrahbookings/umrahbookings.service';
-import { CarbookingsService } from 'src/carbookings/carbookings.service';
-import { FlightbookingService } from 'src/flightbooking/flightbooking.service';
+
 import { NotificationsService } from 'src/notifications/notifications.service';
 
 @ApiBearerAuth()
@@ -40,8 +39,7 @@ export class BookingsController {
     private readonly emailService: EmailService,
     private readonly hotelService: HotelsService,
     private readonly umrahBookingService: UmrahbookingsService,
-    private readonly flightBookingService: FlightbookingService,
-    private readonly carBookingService:CarbookingsService,
+
     private readonly notificationService:NotificationsService,
     
     
@@ -221,20 +219,20 @@ export class BookingsController {
     const totalUsers=await this.usersService.findTotalUsers()
     const bookingStats=await this.bookingsService.findTotalBookings()
     const monthwiseRevenue=await this.bookingsService.findMonthWiseRevenue()
-    const flightbookingStats=await this.flightBookingService.findTotalBookings()
+
     const umrahBookingStats=await this.umrahBookingService.findTotalBookings()
-    const carBookingStats=await this.carBookingService.findTotalBookings()
+  
    
 
     return{
       userCount:totalUsers.userCount,
       vendorCount:totalUsers.vendorCount,
-      totalBookings:bookingStats.totalBookings+flightbookingStats.totalBookings+umrahBookingStats.totalBookings+carBookingStats.totalBookings,
-      totalAmount:Number(bookingStats.totalAmount.totalAmount)+Number(flightbookingStats.totalAmount.totalAmount)+Number(umrahBookingStats.totalAmount.totalAmount)+Number(carBookingStats.totalAmount.totalAmount),
+      totalBookings:bookingStats.totalBookings+umrahBookingStats.totalBookings,
+      totalAmount:Number(bookingStats.totalAmount.totalAmount)+Number(umrahBookingStats.totalAmount.totalAmount),
       monthRevenue:monthwiseRevenue,
-      flightbookings:flightbookingStats.totalBookings,
+      
       umrahbookings:umrahBookingStats.totalBookings,
-      carbookings:carBookingStats.totalBookings,
+    
       hotelBookings:bookingStats.totalBookings,
     }
 

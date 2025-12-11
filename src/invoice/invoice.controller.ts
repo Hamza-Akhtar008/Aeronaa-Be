@@ -6,9 +6,9 @@ import { Role } from 'src/user/entities/user.entity';
 
 import { BookingsService } from 'src/bookings/bookings.service';
 import { UmrahbookingsService } from 'src/umrahbookings/umrahbookings.service';
-import { CarbookingsService } from 'src/carbookings/carbookings.service';
+
 import { ApiTags } from '@nestjs/swagger';
-import { FlightbookingService } from 'src/flightbooking/flightbooking.service';
+
 
 @ApiTags('receipts')
 @Controller('invoice')
@@ -16,8 +16,7 @@ export class InvoiceController {
   constructor(private readonly invoiceService: InvoiceService,
     private readonly bookingService: BookingsService,
     private readonly umrahBookingService: UmrahbookingsService,
-    private readonly carBookingService: CarbookingsService,
-    private readonly flightBookingService:FlightbookingService
+
   ) { }
 
   @Post()
@@ -30,14 +29,7 @@ export class InvoiceController {
     }
     
 
-  if(createInvoiceDto.role==Role.CARRENTAL){
-    createInvoiceDto.totalsales=await this.carBookingService.getInvoiceSum(
-      createInvoiceDto.vendorId,
-      createInvoiceDto.startDate,
-      createInvoiceDto.endDate
-    )
-  }
-  else
+ 
     if(createInvoiceDto.role==Role.UMRAH){
     createInvoiceDto.totalsales=await this.umrahBookingService.getInvoiceSum(
       createInvoiceDto.vendorId,
@@ -45,15 +37,7 @@ export class InvoiceController {
       createInvoiceDto.endDate
     )
   }
-   else
-    if(createInvoiceDto.role==Role.SUPPORT){
-    createInvoiceDto.totalsales=await this.flightBookingService.getInvoiceSum(
-      createInvoiceDto.startDate,
-      createInvoiceDto.endDate,
-    )
-    createInvoiceDto.isFlightBooking=true
-    createInvoiceDto.vendorId=null
-  }
+  
   createInvoiceDto.aeronaaComission=Math.floor(0.03*createInvoiceDto.totalsales)
   createInvoiceDto.vendorNet=createInvoiceDto.totalsales-createInvoiceDto.aeronaaComission
 

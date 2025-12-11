@@ -4,16 +4,14 @@ import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 import { BookingsService } from 'src/bookings/bookings.service';
 import { UmrahbookingsService } from 'src/umrahbookings/umrahbookings.service';
-import { CarbookingsService } from 'src/carbookings/carbookings.service';
-import { FlightbookingService } from 'src/flightbooking/flightbooking.service';
+
 
 @Controller('invoices')
 export class InvoicesController {
   constructor(private readonly invoicesService: InvoicesService,
     private readonly bookingsService: BookingsService,
     private readonly umrahBookingsService: UmrahbookingsService,
-    private readonly carBookingsService: CarbookingsService,
-    private readonly flightBookingsService: FlightbookingService,
+
   ) {}
 
   @Post()
@@ -36,16 +34,7 @@ export class InvoicesController {
     return this.umrahBookingsService.hotelInvoiceAdmin()
   }
 
-   @Get('/admin/cars')
-  findAdminCarInvoice() {
-    return this.carBookingsService.carInvoiceAdmin()
-  }
-
-   @Get('/admin/flights')
-  findAdminFlightsInvoice() {
-    return this.flightBookingsService.getAdminStats()
-  }
-
+ 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.invoicesService.findOne(+id);
