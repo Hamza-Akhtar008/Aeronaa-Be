@@ -16,20 +16,29 @@ const config_1 = require("@nestjs/config");
 let StripeService = class StripeService {
     constructor(configService) {
         this.configService = configService;
-        this.stripe = new stripe_1.default(this.configService.get('STRIPE_SECRET_KEY'), {
-            apiVersion: "2025-05-28.basil",
-        });
+        this.stripe = null;
+    }
+    getClient() {
+        if (!this.stripe) {
+            const secret = this.configService.get('STRIPE_SECRET_KEY');
+            if (!secret) {
+                throw new Error('STRIPE_SECRET_KEY is missing');
+            }
+            this.stripe = new stripe_1.default(secret, {
+                apiVersion: "2025-05-28.basil",
+            });
+        }
+        return this.stripe;
     }
     async createCheckoutSession(data) {
-        return this.stripe.checkout.sessions.create({
+        const stripe = this.getClient();
+        return stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [
                 {
                     price_data: {
                         currency: data.currency,
-                        product_data: {
-                            name: 'Booking Payment',
-                        },
+                        product_data: { name: 'Booking Payment' },
                         unit_amount: data.amount,
                     },
                     quantity: 1,

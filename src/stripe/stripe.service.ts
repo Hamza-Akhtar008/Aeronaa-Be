@@ -1,16 +1,26 @@
-// src/stripe/stripe.service.ts
 import { Injectable } from '@nestjs/common';
 import Stripe from 'stripe';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class StripeService {
-  private stripe: Stripe;
+  private stripe: Stripe | null = null;
 
-  constructor(private configService: ConfigService) {
-    this.stripe = new Stripe(this.configService.get('STRIPE_SECRET_KEY'), {
-      apiVersion: "2025-05-28.basil",
-    });
+  constructor(private configService: ConfigService) {}
+
+  private getClient() {
+    if (!this.stripe) {
+      const secret = this.configService.get<string>('STRIPE_SECRET_KEY');
+
+      if (!secret) {
+        throw new Error('STRIPE_SECRET_KEY is missing');
+      }
+
+      this.stripe = new Stripe(secret, {
+        apiVersion: "2025-05-28.basil",
+      });
+    }
+    return this.stripe;
   }
 
   async createCheckoutSession(data: {
@@ -21,15 +31,15 @@ export class StripeService {
     customerEmail?: string;
     metadata?: Record<string, string>;
   }) {
-    return this.stripe.checkout.sessions.create({
+    const stripe = this.getClient();
+
+    return stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
         {
           price_data: {
             currency: data.currency,
-            product_data: {
-              name: 'Booking Payment',
-            },
+            product_data: { name: 'Booking Payment' },
             unit_amount: data.amount,
           },
           quantity: 1,
