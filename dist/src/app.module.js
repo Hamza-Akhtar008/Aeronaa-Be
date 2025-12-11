@@ -37,7 +37,7 @@ AppModule = __decorate([
                 type: 'postgres',
                 url: process.env.database_url,
                 autoLoadEntities: true,
-                synchronize: true,
+                synchronize: false,
                 ssl: {
                     rejectUnauthorized: false,
                 },

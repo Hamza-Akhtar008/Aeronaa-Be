@@ -36,7 +36,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     // url:process.env.DATABASE_URL,
     url:process.env.database_url,
     autoLoadEntities: true,
-    synchronize: true,
+    synchronize: false,
       ssl: {
      rejectUnauthorized: false,
      },
