@@ -36,7 +36,7 @@ AppModule = __decorate([
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
                 url: process.env.database_url,
-                autoLoadEntities: true,
+                entities: [__dirname + '/**/*.entity{.ts,.js}'],
                 synchronize: false,
                 ssl: {
                     rejectUnauthorized: false,

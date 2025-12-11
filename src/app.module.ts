@@ -35,7 +35,8 @@ import { NotificationsModule } from './notifications/notifications.module';
     // password: process.env.DB_PASSWORD,
     // url:process.env.DATABASE_URL,
     url:process.env.database_url,
-    autoLoadEntities: true,
+  entities: [__dirname + '/**/*.entity{.ts,.js}'],
+
     synchronize: false,
       ssl: {
      rejectUnauthorized: false,
