@@ -39,7 +39,7 @@ AppModule = __decorate([
                 entities: [__dirname + '/**/*.entity{.ts,.js}'],
                 synchronize: false,
                 ssl: {
-                    rejectUnauthorized: false,
+                    rejectUnauthorized: true,
                 },
             }),
             auth_module_1.AuthModule,

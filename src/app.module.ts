@@ -39,7 +39,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 
     synchronize: false,
       ssl: {
-     rejectUnauthorized: false,
+     rejectUnauthorized: true,
      },
   }),
      AuthModule,
